@@ -1,0 +1,44 @@
+# USADATA
+
+> USADATA is a data and marketing intelligence company founded in 1998 in New York City. We maintain a database of 260+ million US consumer records, 15+ million business records, and 190 million households, updated monthly. We provide audience intelligence, data enrichment, omnichannel campaign execution, and analytics for businesses, marketing agencies, and enterprise organizations across 13 industries nationwide. Our products include SL360 (self-serve audience platform), Hailey AI (conversational audience builder), Leads Portal (white-label ordering for distributed teams), and APIs for programmatic data access. All data is TCPA, CCPA, GDPR, and MCDPA compliant.
+
+## Solutions
+
+- [For Businesses](https://www.usadata.com/solutions/for-businesses): Audience intelligence, data enrichment, and coordinated omnichannel campaign execution for businesses that need better customer acquisition.
+- [For Agencies and Partners](https://www.usadata.com/solutions/for-agencies): Behind-the-scenes data layer for marketing agencies, resellers, and print houses. White-label options available.
+- [For Enterprise](https://www.usadata.com/solutions/for-enterprise): APIs, Leads Engine, and enterprise data infrastructure for organizations that need programmatic access at scale.
+
+## Data Services
+
+- [Enrichment and Enhancement](https://www.usadata.com/data/enrichment-enhancement): Append demographics, contact data, property information, firmographics, behavioral signals, and financial indicators to existing customer records. Also includes data hygiene, portrait reports, predictive models, lookalike modeling, customer linkage, and persona development.
+- [Audience Strategy](https://www.usadata.com/data/audience-strategy): Ideal customer profiles, lookalike audience modeling, audience segmentation, matchback reporting, and attribution analysis built from real buyer data.
+- [Order a Mailing List](https://www.usadata.com/data/order-mailing-list): Consumer, business, occupant, new homeowner, and new mover mailing lists. Free real-time counts. Delivery in minutes. CASS Certified, NCOA verified monthly.
+- [Reseller Solutions](https://www.usadata.com/data/reseller-solutions): White-label data reselling for agencies, print houses, and marketing service providers. Set your own pricing. Volume discounts available.
+
+## Products
+
+- [SL360 Platform](https://www.usadata.com/products/sl360): Self-serve audience building, data cleaning, deduplication, and portrait reports. Real-time counts and pricing. No data analyst required.
+- [Hailey AI](https://www.usadata.com/products/hailey): Conversational AI audience builder. Describe your audience in plain English. Free to use. Powered by USADATA data.
+- [Leads Portal](https://www.usadata.com/products/leads-portal): White-label leads ordering platform for insurance agent networks, franchise brands, resellers, and multi-location businesses. Includes embeddable Leads Module widget and Leads Engine API.
+- [APIs and Integrations](https://www.usadata.com/products/apis): RESTful APIs for data enrichment, audience building, hygiene, and matchback attribution. Integrates with Salesforce, HubSpot, Marketo, and custom platforms.
+
+## Industries
+
+- [Industries Hub](https://www.usadata.com/industries-hub): USADATA serves 13 industries: home services (HVAC, plumbing, electrical, roofing), financial institutions, dental and DSOs, higher education, automotive dealerships, insurance agencies, retail furniture, casinos, non-profits, government and state agencies, franchise and multi-location brands, performing arts centers, and consumer brands.
+
+## Resources
+
+- [Learning Lab](https://www.usadata.com/resources/learning-lab): FAQs and educational content about USADATA data sources, products, ordering, pricing, delivery, data quality, and privacy compliance.
+- [News and Insights](https://www.usadata.com/resources/news): Articles on audience targeting, data strategy, digital marketing, direct mail, and analytics.
+
+## Company
+
+- [About USADATA](https://www.usadata.com/about-usadata): Founded 1998. New York City headquarters at 875 3rd Ave, Suite 402, NY 10022. Over 25 years of data and marketing expertise. Serves businesses nationwide.
+- [Contact](https://www.usadata.com/contact): Phone (800) 399-8611 toll-free or (212) 679-1411. Email info@usadata.com. Office hours Monday through Friday 8AM to 6PM EST.
+- [Careers](https://www.usadata.com/company/careers): Open roles in data science, marketing, engineering, sales, client services, and creative.
+- [Start Free Analysis](https://www.usadata.com/start-analysis): Free market and audience analysis for prospective clients. No commitment required.
+
+## Optional
+
+- [Privacy Policy](https://www.usadata.com/privacy-policy): USADATA privacy practices and consumer rights information.
+- [Terms of Use](https://www.usadata.com/termsofuse): Website terms of use.

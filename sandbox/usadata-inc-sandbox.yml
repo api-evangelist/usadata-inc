@@ -1,0 +1,19 @@
+generated: '2026-07-21'
+method: searched
+source: https://www.usadata.com/products/apis
+description: >-
+  USADATA advertises a sandbox environment as part of its API offering:
+  "RESTful API, full documentation, sandbox, dedicated developer support"
+  (https://www.usadata.com/products/apis). No public sandbox host, test
+  credentials, magic test values, or fixture tooling are published — API and
+  sandbox access are provisioned through the sales/developer-support process
+  ("Talk To A Developer" / "Request A Demo").
+environments:
+  - name: sandbox
+    advertised: true
+    public_access: false
+    docs: https://www.usadata.com/products/apis
+test_values: []
+notes:
+  - No test values are captured because none are published; this artifact
+    records only the provider-advertised existence of a sandbox environment.

@@ -1,0 +1,23 @@
+generated: '2026-07-21'
+method: searched
+description: >-
+  Results of probing the /.well-known/ discovery surface for the USADATA
+  website host (no API base hosts are published; API access is sales-gated).
+  Status is the HTTP code observed at fetch time. No document returned a real
+  payload, so nothing was saved; this index records the honest absence.
+hosts:
+  - host: https://www.usadata.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+notes:
+  - /llms.txt on www.usadata.com returns 200 (301 to nova-backend-production-3fee.up.railway.app);
+    saved verbatim at llms/usadata-inc-llms.txt.

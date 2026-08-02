@@ -1,23 +1,97 @@
 aid: usadata-inc
 name: USADATA, Inc.
-description: USADATA, Inc. is a company surfaced as a portfolio company of insight-partners and added
-  to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: USADATA is a data and marketing intelligence company founded in 1998 and
+  headquartered in New York City, backed by Insight Partners. It maintains a database of
+  260+ million US consumer records, 15+ million businesses, and 190 million households,
+  updated monthly, and provides audience intelligence, data enrichment, hygiene, and
+  omnichannel campaign activation. Products include the SL360 self-serve audience
+  platform, Hailey AI conversational audience builder, a white-label Leads Portal with
+  an embeddable Leads Module, and RESTful APIs for real-time and batch enrichment,
+  audience building, hygiene (address standardization, NCOA, dedup, deceased
+  suppression), and matchback attribution, with integrations into Salesforce, HubSpot,
+  Marketo, and other CRM and marketing platforms. API access is sales-gated with no
+  public developer portal or published reference documentation.
 url: https://raw.githubusercontent.com/api-evangelist/usadata-inc/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://static1.squarespace.com/static/69dd1686c455113b9719b22c/t/69dd16cec455113b9719c333/1723120623587/USD_logo_1C_NEBULON.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - insight-partners
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profile
+x-tier-reason: enriched-from-stub
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
+- Data
+- Marketing
+- Data Enrichment
+- Audience Targeting
+- Data Hygiene
+- Direct Mail
+- Leads
 apis: []
+common:
+- type: DomainSecurity
+  url: security/usadata-inc-domain-security.yml
+- name: Website
+  type: Website
+  url: https://www.usadata.com/
+- name: APIs and Integrations
+  type: APIs
+  url: https://www.usadata.com/products/apis
+- name: Blog
+  type: Blog
+  url: https://www.usadata.com/resources/news
+- name: Support
+  type: Support
+  url: https://www.usadata.com/contact
+- name: Help Center
+  type: HelpCenter
+  url: https://www.usadata.com/resources/learning-lab
+- name: Terms of Service
+  type: TermsOfService
+  url: https://www.usadata.com/termsofuse
+- name: Privacy Policy
+  type: PrivacyPolicy
+  url: https://www.usadata.com/privacy-policy
+- name: Login
+  type: Login
+  url: https://www.sl360.com/signin/
+- name: GitHub Organization
+  type: GitHubOrganization
+  url: https://github.com/usadata
+- name: LLMs.txt
+  type: LLMsTxt
+  url: llms/usadata-inc-llms.txt
+- name: Conformance
+  type: Conformance
+  url: conformance/usadata-inc-conformance.yml
+- name: Embedded Components (Leads Module)
+  type: Components
+  url: components/usadata-inc-components.yml
+- name: Sandbox
+  type: Sandbox
+  url: sandbox/usadata-inc-sandbox.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 6
+  pass: local-v1

@@ -1,0 +1,14 @@
+{
+  "repo": "usadata-inc",
+  "feeds": [
+    {
+      "source": "https://www.usadata.com/products/apis",
+      "feed_url": "https://www.usadata.com/products/apis",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-08-01T15:49:00Z"
+}

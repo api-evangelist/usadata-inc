@@ -1,0 +1,28 @@
+generated: '2026-07-21'
+method: searched
+source: https://www.usadata.com/products/leads-portal
+description: >-
+  Client-side / embeddable surfaces USADATA publishes. The Leads Portal ships
+  three deployment options; the embeddable Leads Module is the client-side
+  component. No public loader library, script tag, or technical embed docs are
+  published — implementation is delivered through their sales/onboarding
+  process ("Days for Module" setup timeline).
+families:
+  - family: Leads Module
+    kind: embeddable-widget
+    url: https://www.usadata.com/products/leads-portal
+    description: >-
+      "Embeddable widget. Drop leads ordering into your existing site,
+      intranet, or storefront. Same data, zero separate login." Drop-in leads
+      ordering (geography targeting, filters, real-time counts and pricing,
+      prior-order suppression) for websites, intranets, and web-to-print
+      storefronts; white-label (reseller sets retail pricing and branding).
+    evidence:
+      - >-
+        Learning Lab: "Leads Module (embeddable): Drop-in widget for your
+        existing website, intranet, or web-to-print storefront."
+      - 'Leads Portal FAQ: "How long to set up? ... Days for Module."'
+notes:
+  - The companion "backend API" (Leads Engine) covers counts, pricing,
+    fulfillment, suppression, and delivery programmatically; it is catalogued
+    on the provider profile, not here.

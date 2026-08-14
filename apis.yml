@@ -9,8 +9,12 @@ description: USADATA is a data and marketing intelligence company founded in 199
   an embeddable Leads Module, and RESTful APIs for real-time and batch enrichment,
   audience building, hygiene (address standardization, NCOA, dedup, deceased
   suppression), and matchback attribution, with integrations into Salesforce, HubSpot,
-  Marketo, and other CRM and marketing platforms. API access is sales-gated with no
-  public developer portal or published reference documentation.
+  Marketo, and other CRM and marketing platforms. One machine-readable contract is
+  published — the Leads Engine SOAP service at leadsengine.usadata.com serves a WSDL
+  anonymously declaring 24 operations for counts, pricing, ordering, suppression,
+  address lookup and geography. The REST APIs the marketing site advertises publish no
+  spec, and API credentials are sales-gated with no developer portal, no reference
+  documentation and no self-service sign-up.
 url: https://raw.githubusercontent.com/api-evangelist/usadata-inc/refs/heads/main/apis.yml
 accessModel:
   pricing: unknown
@@ -32,7 +36,7 @@ x-tier: profile
 x-tier-reason: enriched-from-stub
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-21'
+modified: '2026-08-13'
 tags:
 - Company
 - Data
@@ -42,10 +46,97 @@ tags:
 - Data Hygiene
 - Direct Mail
 - Leads
-apis: []
+- SOAP
+- Mailing Lists
+apis:
+- aid: usadata-inc:leads-engine
+  name: USADATA Leads Engine Service (SOAP)
+  description: >-
+    Publicly served SOAP 1.1 / 1.2 web service behind the USADATA Leads Portal
+    and Leads Module. The WSDL is served anonymously from the production API
+    host and declares 24 operations covering the full list-brokerage workflow:
+    table and column discovery (getTableList, getTableDefinition), synchronous
+    and asynchronous audience counts and saturation (carrier-route) counts,
+    cross-tab matrix reports, prior-order suppression, order pricing, order
+    submission, order status and cancellation, address lookup with geocoding,
+    and state/county/city/ZIP geography lookups. Authentication is a Login
+    {UserID, Password, ClientID} element carried in the SOAP body; ping and
+    getVersion answer anonymously. Credentials are issued by USADATA through
+    sales / developer support — there is no self-service sign-up.
+  humanURL: https://leadsengine.usadata.com/service.asmx
+  baseURL: https://leadsengine.usadata.com/service.asmx
+  tags:
+  - SOAP
+  - Data
+  - Leads
+  - Mailing Lists
+  - Audience Targeting
+  - Direct Mail
+  properties:
+  - type: WSDL
+    url: wsdl/usadata-inc-leads-engine.wsdl
+  - name: Leads Engine operation reference (ASP.NET service help)
+    type: APIReference
+    url: https://leadsengine.usadata.com/service.asmx
+  - name: Authentication
+    type: Authentication
+    url: authentication/usadata-inc-authentication.yml
+  - name: Error codes and envelopes
+    type: ErrorCatalog
+    url: errors/usadata-inc-error-codes.yml
+  - name: API conventions
+    type: Conventions
+    url: conventions/usadata-inc-conventions.yml
+  - name: Data model
+    type: DataModel
+    url: data-model/usadata-inc-data-model.yml
+  x-evidence:
+    wsdl_url: https://leadsengine.usadata.com/service.asmx?WSDL
+    wsdl_status: 200
+    wsdl_bytes: 76775
+    disco_url: https://leadsengine.usadata.com/service.asmx?disco
+    disco_status: 200
+    live_ping: 'true'
+    live_version: 3.0.9719.28036
+    fetched: '2026-08-13'
+    ownership: >-
+      WSDL self-identifies as USADATA: wsdl:service name "USADATA Leads Engine
+      Service", targetNamespace http://Usadata/Services/Service, soap:address
+      https://leadsengine.usadata.com/service.asmx, credential namespace
+      http://Usadata.com/Services/LeadsEngine/Login.
 common:
 - type: DomainSecurity
   url: security/usadata-inc-domain-security.yml
+- name: Authentication
+  type: Authentication
+  url: authentication/usadata-inc-authentication.yml
+- name: Error Catalog
+  type: ErrorCatalog
+  url: errors/usadata-inc-error-codes.yml
+- name: API Conventions
+  type: Conventions
+  url: conventions/usadata-inc-conventions.yml
+- name: Data Model
+  type: DataModel
+  url: data-model/usadata-inc-data-model.yml
+- name: Lifecycle
+  type: Lifecycle
+  url: lifecycle/usadata-inc-lifecycle.yml
+- name: Plans and Pricing
+  type: Plans
+  url: plans/usadata-inc-plans-pricing.yml
+- name: MCP Server (candidate, derived from the Leads Engine WSDL)
+  type: MCPServer
+  url: mcp/usadata-inc-mcp.yml
+- name: Agent Skills
+  type: AgentSkill
+  url: skills/_index.yml
+- name: Sign Up
+  type: SignUp
+  url: https://www.sl360.com/signup
+- name: Leads Engine API Reference (ASP.NET service help page)
+  type: APIReference
+  url: https://leadsengine.usadata.com/service.asmx
 - name: Website
   type: Website
   url: https://www.usadata.com/
@@ -91,7 +182,7 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 x-enrichment:
-  date: '2026-07-21'
+  date: '2026-08-13'
   status: enriched
-  artifacts_added: 6
+  artifacts_added: 14
   pass: local-v1

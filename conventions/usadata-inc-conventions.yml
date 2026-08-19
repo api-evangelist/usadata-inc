@@ -1,0 +1,103 @@
+generated: '2026-08-13'
+method: derived
+source: wsdl/usadata-inc-leads-engine.wsdl
+description: >-
+  Cross-cutting request/response semantics of the USADATA Leads Engine SOAP
+  service, derived from the published WSDL and from live anonymous probes of the
+  two unauthenticated diagnostics. USADATA publishes no written conventions
+  guide, so everything here is read off the contract itself.
+protocol:
+  style: SOAP
+  bindings: [SOAP 1.1, SOAP 1.2]
+  encoding: document/literal
+  content_type: text/xml; charset=utf-8
+  endpoint: https://leadsengine.usadata.com/service.asmx
+  soap_action_pattern: http://Usadata/Services/Service/<operation>
+  transport: https
+  http_get_post_bindings: false
+  note: >-
+    Only soap and soap12 bindings are declared; the WSDL exposes no HttpGet /
+    HttpPost binding, so there is no plain-REST projection of these operations.
+discovery:
+  wsdl: https://leadsengine.usadata.com/service.asmx?WSDL
+  disco: https://leadsengine.usadata.com/service.asmx?disco
+  help_page: https://leadsengine.usadata.com/service.asmx
+  note: >-
+    The ASP.NET .asmx help page is a per-operation reference with sample SOAP
+    1.1/1.2 request and response envelopes at service.asmx?op=<operation>. It is
+    served publicly and is the only API reference USADATA publishes.
+authentication:
+  see: authentication/usadata-inc-authentication.yml
+  summary: Login {UserID, Password, ClientID} element in the SOAP body.
+idempotency:
+  supported: false
+  evidence: >-
+    No Idempotency-Key header, no client-supplied request id, and no dedupe
+    token anywhere in the WSDL. submitOrder and submitSaturationOrder are
+    non-idempotent writes; a retry after a timeout can place a second order.
+  mitigation_available: >-
+    OrderRequest carries InvoiceReferenceID, a client-supplied string. The
+    contract does not state that it is enforced unique, so it is a
+    reconciliation aid, not an idempotency key. Do not treat it as one.
+pagination:
+  supported: false
+  evidence: >-
+    Every collection type (ArrayOfTable, ArrayOfColumn, ArrayOfBreakdownResult,
+    ArrayOfCarrierRouteResult, ArrayOfAddressDefinition) is returned whole. No
+    limit/offset/cursor/page parameter exists on any operation.
+async_pattern:
+  supported: true
+  style: submit-then-poll
+  submit_operations: [submitAsynchronousCount, submitAsynchronousSaturationCount]
+  poll_operations: [getAsynchronousCountStatus, getAsynchronousSaturationCountStatus]
+  correlation_field: CountID
+  progress_field: StatusPercent
+  terminal_states: [Complete, Error]
+  note: >-
+    Synchronous twins exist (getSynchronousCount, getSynchronousSaturationCount)
+    and block until the count finishes. There is no callback, webhook or
+    push notification — polling is the only completion signal.
+batching:
+  supported: true
+  operation: getSynchronousCounts
+  shape: ArrayOfCountRequest in, ArrayOfSynchronousCountResult out
+error_envelope:
+  see: errors/usadata-inc-error-codes.yml
+  summary: >-
+    Errors ride in the 200 response body as ReturnCode + ErrorMessage (or
+    ResponseCode + ErrorDescription). HTTP status is not the error signal.
+versioning:
+  scheme: service-reported build string
+  operation: getVersion
+  observed: 3.0.9719.28036
+  observed_on: '2026-08-13'
+  note: >-
+    No version in the URI path, no version header, no version negotiation. The
+    only version signal is an unauthenticated getVersion call returning a .NET
+    assembly build string. There is no published policy tying that string to
+    compatibility.
+rate_limit_signaling:
+  see: rate-limits/usadata-inc-rate-limits.yml
+  summary: >-
+    No rate-limit headers are declared in the WSDL and none are documented. An
+    agent has no ceiling to plan against and no runtime backoff signal.
+tracing:
+  request_id_header: null
+  correlation_ids: [CountID, OrderID]
+  note: >-
+    No transport-level request id. Correlation is domain-level only: a CountID
+    threads a count through polling into an order, and an OrderID threads the
+    order through status and cancellation.
+health:
+  operation: ping
+  anonymous: true
+  observed: 'true'
+  observed_on: '2026-08-13'
+  note: >-
+    ping is callable without credentials and returns a boolean. It is the
+    closest thing USADATA publishes to a status endpoint; there is no status
+    page (status.usadata.com does not resolve).
+notes:
+- No idempotency contract, so this repo deliberately does NOT carry an
+  Idempotency pointer. Emitting one would credit USADATA with a guarantee its
+  published contract does not make.

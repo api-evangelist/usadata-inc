@@ -1,0 +1,72 @@
+generated: '2026-08-13'
+method: derived
+source: wsdl/usadata-inc-leads-engine.wsdl
+description: >-
+  USADATA Leads Engine authenticates with a credential triple carried in the
+  SOAP request BODY, not in a transport header. Every operation except the two
+  unauthenticated diagnostics (ping, getVersion) declares a leading `Login`
+  element of type `{http://Usadata.com/Services/LeadsEngine/Login}Login`. There
+  is no WS-Security header, no OAuth, no API-key header and no bearer token in
+  the published contract; credentials are issued by USADATA through its sales /
+  developer-support process (there is no self-service API sign-up).
+summary:
+  types:
+  - custom-soap-body-credential
+  api_key_in: []
+  oauth2_flows: []
+  transport: https
+  soap_bindings:
+  - SOAP 1.1
+  - SOAP 1.2
+schemes:
+- name: Login
+  type: custom
+  location: soap-body
+  element: Login
+  namespace: http://Usadata.com/Services/LeadsEngine/Login
+  sources:
+  - wsdl/usadata-inc-leads-engine.wsdl
+  fields:
+  - name: UserID
+    type: string
+    required: false
+    note: minOccurs="0" in the schema; supplied in practice.
+  - name: Password
+    type: string
+    required: false
+    note: >-
+      Cleartext password element in the request body. There is no digest,
+      nonce, timestamp or signature in the contract, so confidentiality rests
+      entirely on TLS.
+  - name: ClientID
+    type: string
+    required: false
+    note: Tenant / account identifier alongside the user credential.
+  applies_to_operations: 22
+anonymous_operations:
+- operation: ping
+  evidence: >-
+    Live SOAP 1.1 POST to https://leadsengine.usadata.com/service.asmx with
+    SOAPAction "http://Usadata/Services/Service/ping" and no Login element
+    returned HTTP 200 with <pingResult>true</pingResult> on 2026-08-13.
+- operation: getVersion
+  evidence: >-
+    Live SOAP 1.1 POST with SOAPAction
+    "http://Usadata/Services/Service/getVersion" and no Login element returned
+    HTTP 200 with <getVersionResult>3.0.9719.28036</getVersionResult> on
+    2026-08-13.
+partial_credential_operations:
+- operation: getAvailablePriorOrders
+  note: >-
+    Does NOT take the Login element. It takes AppID + AccountID + DataSource +
+    Interval as plain string parameters, which is a different (and weaker)
+    credential shape than every sibling operation. Recorded as observed, not
+    endorsed.
+notes:
+- No self-service credential issuance was found. www.usadata.com/products/apis
+  advertises "RESTful API, full documentation, sandbox, dedicated developer
+  support" but routes to "Request A Demo" / "Talk To A Developer"; no developer
+  portal, key-management console or auth reference page is published.
+- The published Leads Engine contract is SOAP/WSDL, not the REST API the
+  marketing page describes. No REST contract was found on any USADATA host
+  (see well-known/usadata-inc-well-known.yml for the probe record).

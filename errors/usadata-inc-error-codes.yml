@@ -1,0 +1,79 @@
+generated: '2026-08-13'
+method: derived
+source: wsdl/usadata-inc-leads-engine.wsdl
+format: soap-result-envelope
+description: >-
+  USADATA Leads Engine does not use RFC 9457 problem+json, and it does not use
+  SOAP faults as its primary error channel. Every operation returns a normal
+  200 response whose result object carries an integer return code plus a free-text
+  error string. That means an agent MUST inspect the body: HTTP status alone is
+  not an error signal on this API. The code registry itself (which integer means
+  what) is not published — only the envelope shape is machine-readable.
+envelopes:
+- name: ReturnCode + ErrorMessage
+  fields:
+  - {field: ReturnCode, type: int}
+  - {field: ErrorMessage, type: string}
+  used_by_types:
+  - TableListResult
+  - TableDefinitionResult
+  - MatrixReportResult
+  - SynchronousSaturationCountResult
+  - AsynchronousSaturationCountResult
+  - AsynchronousSaturationCountStatusResult
+  - SynchronousCountResult
+  - AsynchronousCountResult
+  - AsynchronousCountStatusResult
+  - PriceRequestResult
+  - OrderRequestResult
+  - OrderStatusResult
+  - OrderCancelResult
+  - FindAddressResult
+  - GeographyElementResult
+- name: ResponseCode + ErrorDescription
+  fields:
+  - {field: ResponseCode, type: int}
+  - {field: ErrorDescription, type: string}
+  used_by_types:
+  - result
+  note: >-
+    A second, inconsistent envelope naming on the DataContract-serialized
+    `result` base type. Two envelope shapes on one service is a real integration
+    hazard: a client cannot bind one error handler across all operations.
+- name: SOAP Fault
+  fields:
+  - {field: faultcode, type: qname}
+  - {field: faultstring, type: string}
+  note: >-
+    Available via the SOAP 1.1 / 1.2 bindings for transport and serialization
+    failures. No fault detail schemas are declared in the WSDL, so fault bodies
+    are untyped.
+status_enumerations:
+- name: CountStatus
+  values: [Processing, Complete, Error]
+  returned_by: [getAsynchronousCountStatus, getAsynchronousSaturationCountStatus]
+  note: >-
+    Terminal error state for asynchronous counts. Poll until Status leaves
+    Processing; Error is terminal and StatusMessage carries the detail.
+- name: OrderStatus
+  values: [Queued, Processing, Complete, Cancelled, OnHold, Error]
+  returned_by: [getOrderStatus]
+  note: >-
+    OnHold and Error are both non-terminal-looking states that require human
+    follow-up with USADATA; the contract does not say which are retryable.
+supplementary_fields:
+- field: StatusMessage
+  type: string
+  on: [AsynchronousCountStatusResult, AsynchronousSaturationCountStatusResult]
+- field: StatusPercent
+  type: unsignedByte
+  on: [AsynchronousCountStatusResult, AsynchronousSaturationCountStatusResult]
+  note: Progress 0-100 for long-running counts.
+problems: []
+gaps:
+- No published registry mapping ReturnCode / ResponseCode integers to meanings,
+  causes or remediation. The envelope is machine-readable; the codes are not.
+- No error reference page exists on www.usadata.com (probed /developers, /api,
+  /docs, /status - all 404 on 2026-08-13).
+- No typed SOAP fault details, so a client cannot distinguish auth failure from
+  malformed input from downstream outage without parsing English strings.

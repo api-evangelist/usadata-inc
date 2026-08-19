@@ -1,0 +1,80 @@
+generated: '2026-08-13'
+method: derived
+status: candidate
+source: wsdl/usadata-inc-leads-engine.wsdl
+description: >-
+  USADATA ships no MCP server. Searched the docs, npm, and the MCP registries on
+  2026-08-13 and found nothing first-party. What follows is a CANDIDATE tool set
+  derived one-for-one from the 24 operations the Leads Engine WSDL publishes, so
+  the agent surface USADATA could expose is recorded rather than guessed at
+  later. Nothing here is deployed by USADATA.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: derived
+  note: >-
+    mode is none because no server exists - not remote, not stdio. The upstream
+    credential shape is a Login {UserID, Password, ClientID} element in the SOAP
+    body (see authentication/usadata-inc-authentication.yml), which is why auth
+    is recorded as unknown rather than api-key: an MCP server does not exist to
+    have an auth mode.
+server: null
+searched:
+- {source: 'https://www.usadata.com/products/apis', result: no MCP mention}
+- {source: 'https://www.usadata.com/llms.txt', result: no MCP mention}
+- {source: npm @modelcontextprotocol + web search, result: no first-party server}
+- {source: 'https://github.com/USADATA', result: 0 public repositories}
+tools:
+- {name: ping, description: 'Check Leads Engine runtime status. Anonymous.', source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#ping'}
+- {name: get_version, description: 'Get the running Leads Engine version and build number. Anonymous.',
+  source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getVersion'}
+- {name: get_table_list, description: List the data tables available for count and list queries.,
+  source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getTableList'}
+- {name: get_table_definition, description: Get the columns and column values available on a
+    table., source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getTableDefinition'}
+- {name: get_matrix_report, description: Get the cross-tab matrix report for a completed count.,
+  source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getMatrixReport'}
+- {name: get_synchronous_count, description: Run an audience count and block until it completes.,
+  source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getSynchronousCount'}
+- {name: get_synchronous_counts, description: Run an array of audience counts and block until
+    they complete., source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getSynchronousCounts'}
+- {name: submit_asynchronous_count, description: Queue an audience count and get a CountID to
+    poll., source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#submitAsynchronousCount'}
+- {name: get_asynchronous_count_status, description: Poll the status and progress of a queued
+    count., source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getAsynchronousCountStatus'}
+- {name: get_synchronous_saturation_count, description: Run a saturation (occupant / carrier-route)
+    count and block until it completes., source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getSynchronousSaturationCount'}
+- {name: submit_asynchronous_saturation_count, description: Queue a saturation count and get a
+    CountID to poll., source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#submitAsynchronousSaturationCount'}
+- {name: get_asynchronous_saturation_count_status, description: Poll the status and progress of
+    a queued saturation count., source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getAsynchronousSaturationCountStatus'}
+- {name: get_order_price, description: Price an order from a completed count before placing it.,
+  source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getOrderPrice'}
+- {name: get_saturation_order_price, description: Price a saturation order before placing it.,
+  source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getSaturationOrderPrice'}
+- {name: submit_order, description: 'Place a list order against a completed count. WRITE - non-idempotent,
+    financially consequential.', source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#submitOrder'}
+- {name: submit_saturation_order, description: 'Place a saturation order against a completed saturation
+    count. WRITE - non-idempotent, financially consequential.', source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#submitSaturationOrder'}
+- {name: get_order_status, description: 'Get the status of an order and, when complete, its delivery
+    URL.', source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getOrderStatus'}
+- {name: cancel_order, description: Cancel a pending order. WRITE., source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#cancelOrder'}
+- {name: get_available_prior_orders, description: List prior orders available for prior-order suppression.,
+  source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getAvailablePriorOrders'}
+- {name: lookup_address, description: Resolve an input address to candidate address locations.,
+  source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#lookupAddress'}
+- {name: get_counties_in_state, description: List FIPS county codes for a state., source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getCountiesInState'}
+- {name: get_cities_in_state, description: List cities in a state., source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getCitiesInState'}
+- {name: get_zips_in_city, description: List ZIP codes in a city., source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getZipsInCity'}
+- {name: get_zips_in_state, description: List ZIP codes in a state., source_operation: 'wsdl/usadata-inc-leads-engine.wsdl#getZipsInState'}
+tool_count: 24
+notes:
+- Every tool above inherits a REAL input contract from the WSDL schema - the
+  request element for that operation, plus the Login element on all but ping,
+  getVersion and getAvailablePriorOrders. Nothing was invented.
+- Four of the twenty-four are writes that spend money or cancel spend
+  (submit_order, submit_saturation_order, cancel_order, and the paired
+  saturation submit). Any real deployment should gate those behind confirmation.

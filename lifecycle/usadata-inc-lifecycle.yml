@@ -1,0 +1,69 @@
+generated: '2026-08-13'
+method: probed
+source: https://leadsengine.usadata.com/service.asmx
+description: >-
+  Lifecycle posture of the USADATA Leads Engine SOAP service. USADATA publishes
+  no versioning policy, no deprecation policy, no SLA and no status page. The
+  only lifecycle signal it does publish is machine-readable and anonymous: a
+  getVersion operation returning the running build, and a ping operation
+  returning liveness.
+versioning:
+  scheme: service-reported-build
+  current: 3.0.9719.28036
+  observed_on: '2026-08-13'
+  operation: getVersion
+  uri_versioning: false
+  header_versioning: false
+  docs: null
+  note: >-
+    getVersion returns a .NET assembly version string. USADATA publishes no
+    policy binding that string to compatibility, so a client cannot tell a
+    breaking change from a patch. The WSDL itself is unversioned - there is one
+    endpoint, service.asmx, and it is whatever is deployed today.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  note: >-
+    No deprecated operations are marked in the WSDL and no deprecation policy
+    page exists. Probed https://www.usadata.com/changelog (404),
+    /developers (404), /api (404) on 2026-08-13.
+sla:
+  url: null
+  uptime_target: null
+status_page:
+  url: null
+  probes:
+  - {url: 'https://www.usadata.com/status', status: 404}
+  - {host: status.usadata.com, status: NXDOMAIN}
+  health_endpoint:
+    operation: ping
+    endpoint: https://leadsengine.usadata.com/service.asmx
+    anonymous: true
+    observed_result: 'true'
+    observed_on: '2026-08-13'
+    note: >-
+      A callable liveness check is not a status page - it reports now, not
+      incident history or planned maintenance - but it is a real, anonymous,
+      machine-readable availability signal and it is recorded as such.
+changelog:
+  url: null
+  note: No dated changelog or release-notes page is published.
+observed_environments:
+- host: leadsengine.usadata.com
+  role: production SOAP service
+  status: 200
+- host: listmodulev3.usadata.com
+  role: Leads Module embeddable component (production)
+  status: 200
+- host: listmodulev3stg.usadata.com
+  role: Leads Module staging deployment
+  status: 200
+  note: >-
+    A staging host that answers publicly. Recorded as an observed environment,
+    not as a published sandbox - USADATA documents no test credentials or test
+    values for it.
+notes:
+- This artifact carries NO StatusPage and NO Deprecation pointer in apis.yml,
+  because neither exists. The absence is the finding.

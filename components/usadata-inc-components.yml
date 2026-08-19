@@ -1,4 +1,4 @@
-generated: '2026-07-21'
+generated: '2026-08-13'
 method: searched
 source: https://www.usadata.com/products/leads-portal
 description: >-
@@ -22,7 +22,27 @@ families:
         Learning Lab: "Leads Module (embeddable): Drop-in widget for your
         existing website, intranet, or web-to-print storefront."
       - 'Leads Portal FAQ: "How long to set up? ... Days for Module."'
+    hosts:
+      - host: https://listmodulev3.usadata.com
+        role: production
+        status: 200
+        observed: '2026-08-13'
+      - host: https://listmodulev3stg.usadata.com
+        role: staging
+        status: 200
+        observed: '2026-08-13'
+        note: >-
+          A publicly reachable staging deployment of the same module. Recorded
+          as an observed environment, not as a documented sandbox.
+    note: >-
+      The module is served from a dedicated host, listmodulev3.usadata.com
+      (HTTP 200, 2026-08-13), discovered by subdomain enumeration rather than
+      from the docs. USADATA still publishes no loader script, no embed snippet
+      and no integration reference for it, so a developer cannot self-serve the
+      embed.
 notes:
-  - The companion "backend API" (Leads Engine) covers counts, pricing,
-    fulfillment, suppression, and delivery programmatically; it is catalogued
-    on the provider profile, not here.
+  - The companion backend API is now captured. The Leads Engine is a public
+    SOAP/WSDL service at https://leadsengine.usadata.com/service.asmx covering
+    counts, pricing, fulfilment, suppression and delivery. Its contract is saved
+    at wsdl/usadata-inc-leads-engine.wsdl and registered as an API entry in
+    apis.yml.

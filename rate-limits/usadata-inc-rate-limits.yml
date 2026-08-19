@@ -1,0 +1,26 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.usadata.com/products/apis
+description: >-
+  USADATA publishes no rate limits for any of its APIs. The Leads Engine WSDL
+  declares no throttling headers, no quota fields and no 429-equivalent return
+  code, and no page on www.usadata.com documents a ceiling, a window, a burst
+  allowance or a backoff signal.
+limit_count: 0
+limits: []
+response_headers: []
+exhaustion_status: null
+searched:
+- {url: 'https://www.usadata.com/products/apis', status: 200, found: 'no limits documented'}
+- {url: 'https://www.usadata.com/resources/learning-lab', status: 200, found: 'no limits documented'}
+- {url: 'https://leadsengine.usadata.com/service.asmx?WSDL', status: 200, found: 'no rate-limit
+    types, headers or codes in the contract'}
+- {url: 'https://www.usadata.com/developers', status: 404}
+- {url: 'https://www.usadata.com/api', status: 404}
+notes:
+- The service does publish long-running-job progress instead - StatusPercent
+  0-100 and a CountStatus enum on asynchronous count polling - which tells a
+  client how far a job has got but nothing about how often it may call.
+- An honest zero. Recording it is what makes the gap visible; no RateLimits
+  pointer is wired in apis.yml, because there is no rate-limit contract to point
+  at.

@@ -1,0 +1,25 @@
+generated: '2026-08-13'
+method: generated
+source: wsdl/usadata-inc-leads-engine.wsdl
+description: >-
+  Packaged Agent Skills for the USADATA Leads Engine SOAP service. Every step in
+  every skill is grounded in an operation name and a schema type that appears
+  verbatim in the published WSDL at
+  https://leadsengine.usadata.com/service.asmx?WSDL. No provider-published
+  skills or AGENTS.md were found on any USADATA host.
+skills:
+- file: usadata-inc-count-and-order-a-list.md
+  name: Count and order a USADATA mailing list
+  api: wsdl/usadata-inc-leads-engine.wsdl
+  operations: [getTableList, getTableDefinition, getSynchronousCount, getMatrixReport,
+    getOrderPrice, submitOrder, getOrderStatus, cancelOrder]
+- file: usadata-inc-async-counts.md
+  name: Run large USADATA counts asynchronously
+  api: wsdl/usadata-inc-leads-engine.wsdl
+  operations: [submitAsynchronousCount, getAsynchronousCountStatus, submitAsynchronousSaturationCount,
+    getAsynchronousSaturationCountStatus, getSynchronousCounts, ping]
+- file: usadata-inc-geography-and-address.md
+  name: Resolve USADATA geography and addresses
+  api: wsdl/usadata-inc-leads-engine.wsdl
+  operations: [ping, getVersion, getCountiesInState, getCitiesInState, getZipsInState,
+    getZipsInCity, lookupAddress, getAvailablePriorOrders]

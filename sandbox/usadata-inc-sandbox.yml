@@ -1,4 +1,4 @@
-generated: '2026-07-21'
+generated: '2026-08-13'
 method: searched
 source: https://www.usadata.com/products/apis
 description: >-
@@ -9,11 +9,42 @@ description: >-
   sandbox access are provisioned through the sales/developer-support process
   ("Talk To A Developer" / "Request A Demo").
 environments:
-  - name: sandbox
-    advertised: true
-    public_access: false
-    docs: https://www.usadata.com/products/apis
+- name: sandbox
+  advertised: true
+  public_access: false
+  docs: https://www.usadata.com/products/apis
+- name: leads-module-staging
+  advertised: false
+  public_access: true
+  host: https://listmodulev3stg.usadata.com
+  status: 200
+  observed: '2026-08-13'
+  note: >-
+    A staging deployment of the embeddable Leads Module that answers publicly.
+    Found by subdomain enumeration, not from the docs. It is NOT a documented
+    sandbox: no test credentials, test values or usage guidance are published
+    for it, and USADATA does not advertise it. Recorded as an observed
+    environment only.
 test_values: []
+anonymous_probes:
+- operation: ping
+  endpoint: https://leadsengine.usadata.com/service.asmx
+  binding: SOAP 1.1
+  result: 'true'
+  observed: '2026-08-13'
+  note: >-
+    The closest thing to a try-before-credentials surface on the production API.
+    ping and getVersion take no Login element and answer anonymously, so a
+    developer can verify reachability without an account — but nothing else on
+    the service is callable without credentials USADATA issues by hand.
+- operation: getVersion
+  endpoint: https://leadsengine.usadata.com/service.asmx
+  binding: SOAP 1.1
+  result: 3.0.9719.28036
+  observed: '2026-08-13'
 notes:
-  - No test values are captured because none are published; this artifact
-    records only the provider-advertised existence of a sandbox environment.
+- No test values are captured because none are published; this artifact records
+  the provider-advertised existence of a sandbox, the two anonymously callable
+  production diagnostics, and one observed staging host.
+- There is no test-vs-live key separation to record. The credential is a
+  Login {UserID, Password, ClientID} triple with no mode prefix.

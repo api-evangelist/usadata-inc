@@ -1,0 +1,1582 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://Usadata/Services/Service" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s1="http://Usadata.com/Services/LeadsEngine/Login" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://Usadata/Services/Service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://Usadata/Services/Service">
+      <s:import namespace="http://Usadata.com/Services/LeadsEngine/Login" />
+      <s:element name="ping">
+        <s:complexType />
+      </s:element>
+      <s:element name="pingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pingResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="getVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getTableList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getTableListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getTableListResult" type="tns:TableListResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TableListResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TableList" type="tns:ArrayOfTable" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTable">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Table" nillable="true" type="tns:Table" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Table">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getTableDefinition">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="TableName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getTableDefinitionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getTableDefinitionResult" type="tns:TableDefinitionResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TableDefinitionResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TableDefinition" type="tns:ArrayOfColumn" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfColumn">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Column" nillable="true" type="tns:Column" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Column">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:ColumnType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Values" type="tns:ArrayOfColumnValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ColumnType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Selection" />
+          <s:enumeration value="Range" />
+          <s:enumeration value="SicEntry" />
+          <s:enumeration value="OutputColumn" />
+          <s:enumeration value="GeoSelection" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfColumnValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ColumnValue" nillable="true" type="tns:ColumnValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ColumnValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getMatrixReport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="CountID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RowName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ColumnName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dataSource" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getMatrixReportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getMatrixReportResult" type="tns:MatrixReportResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MatrixReportResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Report" type="tns:InstantMatrixCountResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="InstantMatrixCountResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:GrandTotalResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="MXItems" type="tns:ArrayOfMXItem" />
+              <s:element minOccurs="0" maxOccurs="1" name="MX" type="tns:ArrayOfMXBR" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="GrandTotalResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:result">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="CountID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="RecordCount" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="result">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ExtensionData" type="tns:ExtensionDataObject" />
+          <s:element minOccurs="1" maxOccurs="1" name="ResponseCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ExtensionDataObject" />
+      <s:complexType name="ArrayOfMXItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MXItem" nillable="true" type="tns:MXItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MXItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ExtensionData" type="tns:ExtensionDataObject" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMXBR">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MXBR" nillable="true" type="tns:MXBR" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MXBR">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ExtensionData" type="tns:ExtensionDataObject" />
+          <s:element minOccurs="1" maxOccurs="1" name="Index" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Codes" type="tns:ArrayOfMXBRItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMXBRItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MXBRItem" nillable="true" type="tns:MXBRItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MXBRItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ExtensionData" type="tns:ExtensionDataObject" />
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SubTotal" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="SubBR" type="tns:ArrayOfMXBR" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getSynchronousSaturationCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="CountRequest" type="tns:CountRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CountRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TableName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AreaCriteria" type="tns:AreaRequest" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeographicCriteria" type="tns:Column" />
+          <s:element minOccurs="0" maxOccurs="1" name="SelectionCriteria" type="tns:ArrayOfColumn" />
+          <s:element minOccurs="1" maxOccurs="1" name="BreakdownResults" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneOption" type="tns:PhoneOption" />
+          <s:element minOccurs="0" maxOccurs="1" name="PerHouseholdValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Suppression" type="tns:SuppressionSelection" />
+          <s:element minOccurs="0" maxOccurs="1" name="SuppressionPriorOrder" type="tns:SuppressionPriorOrdersSelection" />
+          <s:element minOccurs="0" maxOccurs="1" name="PolygonPoints" type="tns:ArrayOfPoint" />
+          <s:element minOccurs="1" maxOccurs="1" name="PolygonBreakdownType" type="tns:RadiusType" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountIds" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomSuppression" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="MultiPolygonPoints" type="tns:MultiPolygonPoints" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AreaRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="tns:AddressDefinition" />
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:AreaRequestType" />
+          <s:element minOccurs="1" maxOccurs="1" name="RequestValue" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="UseZip4Granularity" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Addresses" type="tns:ArrayOfAddressDefinition" />
+          <s:element minOccurs="0" maxOccurs="1" name="DriveTimeAddress" type="tns:DriveTimeDefinition" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressDefinition">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Location" type="tns:Point" />
+          <s:element minOccurs="1" maxOccurs="1" name="Radius" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="KeyCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Point">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="X" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Y" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="AreaRequestType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Proximity" />
+          <s:enumeration value="DriveTime" />
+          <s:enumeration value="Radius" />
+          <s:enumeration value="Polygon" />
+          <s:enumeration value="MultiRadius" />
+          <s:enumeration value="DriveTimeRadius" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfAddressDefinition">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AddressDefinition" nillable="true" type="tns:AddressDefinition" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DriveTimeDefinition">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Location" type="tns:Point" />
+          <s:element minOccurs="1" maxOccurs="1" name="LocationType" type="tns:LocationType" />
+          <s:element minOccurs="1" maxOccurs="1" name="DriveTime" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Centroid" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="LocationType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Zip" />
+          <s:enumeration value="CarrierRoute" />
+          <s:enumeration value="Zip4" />
+          <s:enumeration value="Coodinates" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PhoneOption">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SuppressionSelection">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AccountID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SuppressionInterval" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SuppressionPriorOrdersSelection">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AccountID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AvailablePrioroOrders" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="SuppressionPriorOrders" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPoint">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Point" nillable="true" type="tns:Point" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="RadiusType">
+        <s:restriction base="s:string">
+          <s:enumeration value="CarrierRoute" />
+          <s:enumeration value="Zipcode" />
+          <s:enumeration value="Zip4" />
+          <s:enumeration value="GeoPolygon" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="MultiPolygonPoints">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PolygonPoints" type="tns:ArrayOfPolygonPoint" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPolygonPoint">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PolygonPoint" nillable="true" type="tns:PolygonPoint" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PolygonPoint">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="KeyCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PointsOfRing" type="tns:ArrayOfPoint" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getSynchronousSaturationCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getSynchronousSaturationCountResult" type="tns:SynchronousSaturationCountResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SynchronousSaturationCountResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CountTotal" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierRoutes" type="tns:ArrayOfCarrierRouteResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCarrierRouteResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CarrierRouteResult" nillable="true" type="tns:CarrierRouteResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CarrierRouteResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Crrt" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CountHomes" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="CountApartments" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="CountBusinesses" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="submitAsynchronousSaturationCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="CountRequest" type="tns:CountRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="submitAsynchronousSaturationCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="submitAsynchronousSaturationCountResult" type="tns:AsynchronousSaturationCountResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AsynchronousSaturationCountResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getAsynchronousSaturationCountStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="CountID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAsynchronousSaturationCountStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAsynchronousSaturationCountStatusResult" type="tns:AsynchronousSaturationCountStatusResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AsynchronousSaturationCountStatusResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="tns:CountStatus" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="StatusPercent" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CountTotal" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierRoutes" type="tns:ArrayOfCarrierRouteResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="CountStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="Processing" />
+          <s:enumeration value="Complete" />
+          <s:enumeration value="Error" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="submitSaturationOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="SaturationOrderRequest" type="tns:SaturationOrderRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SaturationOrderRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CountID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InvoiceReferenceID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DesiredQuantity" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AvailableQuantity" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FileFormat" type="tns:FileFormats" />
+          <s:element minOccurs="1" maxOccurs="1" name="Usage" type="tns:ListUsage" />
+          <s:element minOccurs="0" maxOccurs="1" name="OutputColumns" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierRoutes" type="tns:ArrayOfCarrierRouteRequest" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="FileFormats">
+        <s:restriction base="s:string">
+          <s:enumeration value="ASCII" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="ListUsage">
+        <s:restriction base="s:string">
+          <s:enumeration value="Single" />
+          <s:enumeration value="Multiple" />
+          <s:enumeration value="Analytical" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfCarrierRouteRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CarrierRouteRequest" nillable="true" type="tns:CarrierRouteRequest" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CarrierRouteRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Crrt" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelectedHomes" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelectedApartments" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelectedBusinesses" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="submitSaturationOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="submitSaturationOrderResult" type="tns:OrderRequestResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OrderRequestResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="OrderID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getAvailablePriorOrders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AppID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AccountID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataSource" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Interval" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAvailablePriorOrdersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAvailablePriorOrdersResult" type="tns:SuppressionPriorOrdersSelection" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getSynchronousCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="CountRequest" type="tns:CountRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getSynchronousCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getSynchronousCountResult" type="tns:SynchronousCountResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SynchronousCountResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CountTotal" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="BreakdownResults" type="tns:ArrayOfBreakdownResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBreakdownResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BreakdownResult" nillable="true" type="tns:BreakdownResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BreakdownResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getSynchronousCounts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="CountRequestList" type="tns:ArrayOfCountRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCountRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CountRequest" nillable="true" type="tns:CountRequest" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getSynchronousCountsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getSynchronousCountsResult" type="tns:ArrayOfSynchronousCountResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSynchronousCountResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SynchronousCountResult" nillable="true" type="tns:SynchronousCountResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="submitAsynchronousCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="CountRequest" type="tns:CountRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="submitAsynchronousCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="submitAsynchronousCountResult" type="tns:AsynchronousCountResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AsynchronousCountResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getAsynchronousCountStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="CountID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAsynchronousCountStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAsynchronousCountStatusResult" type="tns:AsynchronousCountStatusResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AsynchronousCountStatusResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="tns:CountStatus" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="StatusPercent" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CountTotal" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="BreakdownResults" type="tns:ArrayOfBreakdownResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getSaturationOrderPrice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderRequest" type="tns:SaturationOrderRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getSaturationOrderPriceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getSaturationOrderPriceResult" type="tns:PriceRequestResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PriceRequestResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="OrderPrice" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getOrderPrice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderRequest" type="tns:OrderRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OrderRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CountID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InvoiceReferenceID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DesiredQuantity" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AvailableQuantity" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelectionMethod" type="tns:SelectionMethod" />
+          <s:element minOccurs="1" maxOccurs="1" name="FileFormat" type="tns:FileFormats" />
+          <s:element minOccurs="1" maxOccurs="1" name="Usage" type="tns:ListUsage" />
+          <s:element minOccurs="0" maxOccurs="1" name="OutputColumns" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="NthDistribution" type="tns:QtyDistribution" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="SelectionMethod">
+        <s:restriction base="s:string">
+          <s:enumeration value="All" />
+          <s:enumeration value="Stop" />
+          <s:enumeration value="Distribute" />
+          <s:enumeration value="DistributeNth" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="QtyDistribution">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ColumnID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Values" type="tns:ArrayOfQtyDistributionValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfQtyDistributionValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="QtyDistributionValue" nillable="true" type="tns:QtyDistributionValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="QtyDistributionValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="QtyAvailable" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="QtyDesired" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getOrderPriceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getOrderPriceResult" type="tns:PriceRequestResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="submitOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderRequest" type="tns:OrderRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="submitOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="submitOrderResult" type="tns:OrderRequestResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getOrderStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getOrderStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getOrderStatusResult" type="tns:OrderStatusResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OrderStatusResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CurrentStatus" type="tns:OrderStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="URL" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="OrderStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="Queued" />
+          <s:enumeration value="Processing" />
+          <s:enumeration value="Complete" />
+          <s:enumeration value="Cancelled" />
+          <s:enumeration value="OnHold" />
+          <s:enumeration value="Error" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="cancelOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="cancelOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cancelOrderResult" type="tns:OrderCancelResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OrderCancelResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="lookupAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="Address" type="tns:AddressRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AddressRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="lookupAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="lookupAddressResult" type="tns:FindAddressResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FindAddressResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Candidates" type="tns:ArrayOfAddressDefinition" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getCountiesInState">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getCountiesInStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getCountiesInStateResult" type="tns:GeographyElementResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GeographyElementResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Elements" type="tns:ArrayOfColumnValue" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getCitiesInState">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getCitiesInStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getCitiesInStateResult" type="tns:GeographyElementResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getZipsInCity">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="CityID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getZipsInCityResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getZipsInCityResult" type="tns:GeographyElementResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getZipsInState">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s1:Login" />
+            <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getZipsInStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getZipsInStateResult" type="tns:GeographyElementResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://Usadata.com/Services/LeadsEngine/Login">
+      <s:complexType name="Login">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="pingSoapIn">
+    <wsdl:part name="parameters" element="tns:ping" />
+  </wsdl:message>
+  <wsdl:message name="pingSoapOut">
+    <wsdl:part name="parameters" element="tns:pingResponse" />
+  </wsdl:message>
+  <wsdl:message name="getVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:getVersion" />
+  </wsdl:message>
+  <wsdl:message name="getVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:getVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTableListSoapIn">
+    <wsdl:part name="parameters" element="tns:getTableList" />
+  </wsdl:message>
+  <wsdl:message name="getTableListSoapOut">
+    <wsdl:part name="parameters" element="tns:getTableListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTableDefinitionSoapIn">
+    <wsdl:part name="parameters" element="tns:getTableDefinition" />
+  </wsdl:message>
+  <wsdl:message name="getTableDefinitionSoapOut">
+    <wsdl:part name="parameters" element="tns:getTableDefinitionResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMatrixReportSoapIn">
+    <wsdl:part name="parameters" element="tns:getMatrixReport" />
+  </wsdl:message>
+  <wsdl:message name="getMatrixReportSoapOut">
+    <wsdl:part name="parameters" element="tns:getMatrixReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSynchronousSaturationCountSoapIn">
+    <wsdl:part name="parameters" element="tns:getSynchronousSaturationCount" />
+  </wsdl:message>
+  <wsdl:message name="getSynchronousSaturationCountSoapOut">
+    <wsdl:part name="parameters" element="tns:getSynchronousSaturationCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="submitAsynchronousSaturationCountSoapIn">
+    <wsdl:part name="parameters" element="tns:submitAsynchronousSaturationCount" />
+  </wsdl:message>
+  <wsdl:message name="submitAsynchronousSaturationCountSoapOut">
+    <wsdl:part name="parameters" element="tns:submitAsynchronousSaturationCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAsynchronousSaturationCountStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:getAsynchronousSaturationCountStatus" />
+  </wsdl:message>
+  <wsdl:message name="getAsynchronousSaturationCountStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:getAsynchronousSaturationCountStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="submitSaturationOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:submitSaturationOrder" />
+  </wsdl:message>
+  <wsdl:message name="submitSaturationOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:submitSaturationOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAvailablePriorOrdersSoapIn">
+    <wsdl:part name="parameters" element="tns:getAvailablePriorOrders" />
+  </wsdl:message>
+  <wsdl:message name="getAvailablePriorOrdersSoapOut">
+    <wsdl:part name="parameters" element="tns:getAvailablePriorOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSynchronousCountSoapIn">
+    <wsdl:part name="parameters" element="tns:getSynchronousCount" />
+  </wsdl:message>
+  <wsdl:message name="getSynchronousCountSoapOut">
+    <wsdl:part name="parameters" element="tns:getSynchronousCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSynchronousCountsSoapIn">
+    <wsdl:part name="parameters" element="tns:getSynchronousCounts" />
+  </wsdl:message>
+  <wsdl:message name="getSynchronousCountsSoapOut">
+    <wsdl:part name="parameters" element="tns:getSynchronousCountsResponse" />
+  </wsdl:message>
+  <wsdl:message name="submitAsynchronousCountSoapIn">
+    <wsdl:part name="parameters" element="tns:submitAsynchronousCount" />
+  </wsdl:message>
+  <wsdl:message name="submitAsynchronousCountSoapOut">
+    <wsdl:part name="parameters" element="tns:submitAsynchronousCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAsynchronousCountStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:getAsynchronousCountStatus" />
+  </wsdl:message>
+  <wsdl:message name="getAsynchronousCountStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:getAsynchronousCountStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSaturationOrderPriceSoapIn">
+    <wsdl:part name="parameters" element="tns:getSaturationOrderPrice" />
+  </wsdl:message>
+  <wsdl:message name="getSaturationOrderPriceSoapOut">
+    <wsdl:part name="parameters" element="tns:getSaturationOrderPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="getOrderPriceSoapIn">
+    <wsdl:part name="parameters" element="tns:getOrderPrice" />
+  </wsdl:message>
+  <wsdl:message name="getOrderPriceSoapOut">
+    <wsdl:part name="parameters" element="tns:getOrderPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="submitOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:submitOrder" />
+  </wsdl:message>
+  <wsdl:message name="submitOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:submitOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="getOrderStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:getOrderStatus" />
+  </wsdl:message>
+  <wsdl:message name="getOrderStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:getOrderStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="cancelOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:cancelOrder" />
+  </wsdl:message>
+  <wsdl:message name="cancelOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:cancelOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="lookupAddressSoapIn">
+    <wsdl:part name="parameters" element="tns:lookupAddress" />
+  </wsdl:message>
+  <wsdl:message name="lookupAddressSoapOut">
+    <wsdl:part name="parameters" element="tns:lookupAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="getCountiesInStateSoapIn">
+    <wsdl:part name="parameters" element="tns:getCountiesInState" />
+  </wsdl:message>
+  <wsdl:message name="getCountiesInStateSoapOut">
+    <wsdl:part name="parameters" element="tns:getCountiesInStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="getCitiesInStateSoapIn">
+    <wsdl:part name="parameters" element="tns:getCitiesInState" />
+  </wsdl:message>
+  <wsdl:message name="getCitiesInStateSoapOut">
+    <wsdl:part name="parameters" element="tns:getCitiesInStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="getZipsInCitySoapIn">
+    <wsdl:part name="parameters" element="tns:getZipsInCity" />
+  </wsdl:message>
+  <wsdl:message name="getZipsInCitySoapOut">
+    <wsdl:part name="parameters" element="tns:getZipsInCityResponse" />
+  </wsdl:message>
+  <wsdl:message name="getZipsInStateSoapIn">
+    <wsdl:part name="parameters" element="tns:getZipsInState" />
+  </wsdl:message>
+  <wsdl:message name="getZipsInStateSoapOut">
+    <wsdl:part name="parameters" element="tns:getZipsInStateResponse" />
+  </wsdl:message>
+  <wsdl:portType name="USADATA_x0020_Leads_x0020_Engine_x0020_ServiceSoap">
+    <wsdl:operation name="ping">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">A simple operation for checking the runtime status of the application.</wsdl:documentation>
+      <wsdl:input message="tns:pingSoapIn" />
+      <wsdl:output message="tns:pingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the current version and build number of the Leads Engine application.</wsdl:documentation>
+      <wsdl:input message="tns:getVersionSoapIn" />
+      <wsdl:output message="tns:getVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getTableList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets a list of available tables for count and list queries.</wsdl:documentation>
+      <wsdl:input message="tns:getTableListSoapIn" />
+      <wsdl:output message="tns:getTableListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getTableDefinition">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the available column and column values for a given table.</wsdl:documentation>
+      <wsdl:input message="tns:getTableDefinitionSoapIn" />
+      <wsdl:output message="tns:getTableDefinitionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getMatrixReport">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the matrix report for a given count id.</wsdl:documentation>
+      <wsdl:input message="tns:getMatrixReportSoapIn" />
+      <wsdl:output message="tns:getMatrixReportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getSynchronousSaturationCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Submits a saturation count request in a synchronous manner.  This method does not return until the count is complete.</wsdl:documentation>
+      <wsdl:input message="tns:getSynchronousSaturationCountSoapIn" />
+      <wsdl:output message="tns:getSynchronousSaturationCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="submitAsynchronousSaturationCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Submits an asynchronous saturation count request to the count engine, returnin an id for subsequent count status queries.</wsdl:documentation>
+      <wsdl:input message="tns:submitAsynchronousSaturationCountSoapIn" />
+      <wsdl:output message="tns:submitAsynchronousSaturationCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAsynchronousSaturationCountStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the status of a given saturation count id.</wsdl:documentation>
+      <wsdl:input message="tns:getAsynchronousSaturationCountStatusSoapIn" />
+      <wsdl:output message="tns:getAsynchronousSaturationCountStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="submitSaturationOrder">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Submits a saturation order to the Leads Engine fulfillment system.</wsdl:documentation>
+      <wsdl:input message="tns:submitSaturationOrderSoapIn" />
+      <wsdl:output message="tns:submitSaturationOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAvailablePriorOrders">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets available prior orders to do PriorOrderSelection suppression.</wsdl:documentation>
+      <wsdl:input message="tns:getAvailablePriorOrdersSoapIn" />
+      <wsdl:output message="tns:getAvailablePriorOrdersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getSynchronousCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Submits a count request in a synchronous manner.  This method does not return until the count is complete.</wsdl:documentation>
+      <wsdl:input message="tns:getSynchronousCountSoapIn" />
+      <wsdl:output message="tns:getSynchronousCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getSynchronousCounts">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Submits count request array in a synchronous manner.  This method does not return until the count is complete.</wsdl:documentation>
+      <wsdl:input message="tns:getSynchronousCountsSoapIn" />
+      <wsdl:output message="tns:getSynchronousCountsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="submitAsynchronousCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Submits an asynchronous count request to the count engine, returning an id for subsequent count status queries.</wsdl:documentation>
+      <wsdl:input message="tns:submitAsynchronousCountSoapIn" />
+      <wsdl:output message="tns:submitAsynchronousCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAsynchronousCountStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the status of a given count id.</wsdl:documentation>
+      <wsdl:input message="tns:getAsynchronousCountStatusSoapIn" />
+      <wsdl:output message="tns:getAsynchronousCountStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getSaturationOrderPrice">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the price of a saturation order based on the values specified in an order request object.</wsdl:documentation>
+      <wsdl:input message="tns:getSaturationOrderPriceSoapIn" />
+      <wsdl:output message="tns:getSaturationOrderPriceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getOrderPrice">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the price of an order based on the values specified in an order request object.</wsdl:documentation>
+      <wsdl:input message="tns:getOrderPriceSoapIn" />
+      <wsdl:output message="tns:getOrderPriceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="submitOrder">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Submits an order to the Leads Engine fulfillment system.</wsdl:documentation>
+      <wsdl:input message="tns:submitOrderSoapIn" />
+      <wsdl:output message="tns:submitOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getOrderStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the status of an existing order in the Leads Engine fulfillment system.</wsdl:documentation>
+      <wsdl:input message="tns:getOrderStatusSoapIn" />
+      <wsdl:output message="tns:getOrderStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="cancelOrder">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Cancels a pending order in the Leads Engine fulfillment system.</wsdl:documentation>
+      <wsdl:input message="tns:cancelOrderSoapIn" />
+      <wsdl:output message="tns:cancelOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="lookupAddress">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Given an input address, returns a list of possible address location candidates for the address.</wsdl:documentation>
+      <wsdl:input message="tns:lookupAddressSoapIn" />
+      <wsdl:output message="tns:lookupAddressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getCountiesInState">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of FIPS county codes for a given state.</wsdl:documentation>
+      <wsdl:input message="tns:getCountiesInStateSoapIn" />
+      <wsdl:output message="tns:getCountiesInStateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getCitiesInState">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of cities for a given state.</wsdl:documentation>
+      <wsdl:input message="tns:getCitiesInStateSoapIn" />
+      <wsdl:output message="tns:getCitiesInStateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getZipsInCity">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of zip codes in a given city.</wsdl:documentation>
+      <wsdl:input message="tns:getZipsInCitySoapIn" />
+      <wsdl:output message="tns:getZipsInCitySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getZipsInState">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of zip codes in a given state.</wsdl:documentation>
+      <wsdl:input message="tns:getZipsInStateSoapIn" />
+      <wsdl:output message="tns:getZipsInStateSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="USADATA_x0020_Leads_x0020_Engine_x0020_ServiceSoap" type="tns:USADATA_x0020_Leads_x0020_Engine_x0020_ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ping">
+      <soap:operation soapAction="http://Usadata/Services/Service/ping" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getVersion">
+      <soap:operation soapAction="http://Usadata/Services/Service/getVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTableList">
+      <soap:operation soapAction="http://Usadata/Services/Service/getTableList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTableDefinition">
+      <soap:operation soapAction="http://Usadata/Services/Service/getTableDefinition" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMatrixReport">
+      <soap:operation soapAction="http://Usadata/Services/Service/getMatrixReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSynchronousSaturationCount">
+      <soap:operation soapAction="http://Usadata/Services/Service/getSynchronousSaturationCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitAsynchronousSaturationCount">
+      <soap:operation soapAction="http://Usadata/Services/Service/submitAsynchronousSaturationCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAsynchronousSaturationCountStatus">
+      <soap:operation soapAction="http://Usadata/Services/Service/getAsynchronousSaturationCountStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitSaturationOrder">
+      <soap:operation soapAction="http://Usadata/Services/Service/submitSaturationOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAvailablePriorOrders">
+      <soap:operation soapAction="http://Usadata/Services/Service/getAvailablePriorOrders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSynchronousCount">
+      <soap:operation soapAction="http://Usadata/Services/Service/getSynchronousCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSynchronousCounts">
+      <soap:operation soapAction="http://Usadata/Services/Service/getSynchronousCounts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitAsynchronousCount">
+      <soap:operation soapAction="http://Usadata/Services/Service/submitAsynchronousCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAsynchronousCountStatus">
+      <soap:operation soapAction="http://Usadata/Services/Service/getAsynchronousCountStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSaturationOrderPrice">
+      <soap:operation soapAction="http://Usadata/Services/Service/getSaturationOrderPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrderPrice">
+      <soap:operation soapAction="http://Usadata/Services/Service/getOrderPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitOrder">
+      <soap:operation soapAction="http://Usadata/Services/Service/submitOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrderStatus">
+      <soap:operation soapAction="http://Usadata/Services/Service/getOrderStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelOrder">
+      <soap:operation soapAction="http://Usadata/Services/Service/cancelOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lookupAddress">
+      <soap:operation soapAction="http://Usadata/Services/Service/lookupAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCountiesInState">
+      <soap:operation soapAction="http://Usadata/Services/Service/getCountiesInState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCitiesInState">
+      <soap:operation soapAction="http://Usadata/Services/Service/getCitiesInState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getZipsInCity">
+      <soap:operation soapAction="http://Usadata/Services/Service/getZipsInCity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getZipsInState">
+      <soap:operation soapAction="http://Usadata/Services/Service/getZipsInState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="USADATA_x0020_Leads_x0020_Engine_x0020_ServiceSoap12" type="tns:USADATA_x0020_Leads_x0020_Engine_x0020_ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ping">
+      <soap12:operation soapAction="http://Usadata/Services/Service/ping" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getVersion">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTableList">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getTableList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTableDefinition">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getTableDefinition" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMatrixReport">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getMatrixReport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSynchronousSaturationCount">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getSynchronousSaturationCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitAsynchronousSaturationCount">
+      <soap12:operation soapAction="http://Usadata/Services/Service/submitAsynchronousSaturationCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAsynchronousSaturationCountStatus">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getAsynchronousSaturationCountStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitSaturationOrder">
+      <soap12:operation soapAction="http://Usadata/Services/Service/submitSaturationOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAvailablePriorOrders">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getAvailablePriorOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSynchronousCount">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getSynchronousCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSynchronousCounts">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getSynchronousCounts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitAsynchronousCount">
+      <soap12:operation soapAction="http://Usadata/Services/Service/submitAsynchronousCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAsynchronousCountStatus">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getAsynchronousCountStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSaturationOrderPrice">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getSaturationOrderPrice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrderPrice">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getOrderPrice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitOrder">
+      <soap12:operation soapAction="http://Usadata/Services/Service/submitOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrderStatus">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getOrderStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelOrder">
+      <soap12:operation soapAction="http://Usadata/Services/Service/cancelOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lookupAddress">
+      <soap12:operation soapAction="http://Usadata/Services/Service/lookupAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCountiesInState">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getCountiesInState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCitiesInState">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getCitiesInState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getZipsInCity">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getZipsInCity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getZipsInState">
+      <soap12:operation soapAction="http://Usadata/Services/Service/getZipsInState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="USADATA_x0020_Leads_x0020_Engine_x0020_Service">
+    <wsdl:port name="USADATA_x0020_Leads_x0020_Engine_x0020_ServiceSoap" binding="tns:USADATA_x0020_Leads_x0020_Engine_x0020_ServiceSoap">
+      <soap:address location="https://leadsengine.usadata.com/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="USADATA_x0020_Leads_x0020_Engine_x0020_ServiceSoap12" binding="tns:USADATA_x0020_Leads_x0020_Engine_x0020_ServiceSoap12">
+      <soap12:address location="https://leadsengine.usadata.com/service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

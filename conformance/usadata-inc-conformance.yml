@@ -1,51 +1,146 @@
-generated: '2026-07-21'
+generated: '2026-08-13'
 method: searched
 source: https://www.usadata.com/llms.txt
+description: >-
+  Two kinds of conformance, kept apart on purpose. The regulatory / data-quality
+  block is what USADATA itself publishes about its data. The technical block is
+  what the published Leads Engine contract at
+  https://leadsengine.usadata.com/service.asmx?WSDL actually implements, derived
+  from that document on 2026-08-13.
 standards:
-  - id: tcpa
-    conforms: true
-    evidence: >-
-      llms.txt (https://www.usadata.com/llms.txt): "All data is TCPA, CCPA,
-      GDPR, and MCDPA compliant."
-  - id: ccpa
-    conforms: true
-    evidence: >-
-      llms.txt: "All data is TCPA, CCPA, GDPR, and MCDPA compliant." Site also
-      publishes a Do Not Sell My Information page
-      (https://www.usadata.com/donotsellmyinformation, HTTP 200).
-  - id: gdpr
-    conforms: true
-    evidence: 'llms.txt: "All data is TCPA, CCPA, GDPR, and MCDPA compliant."'
-  - id: mcdpa
-    conforms: true
-    evidence: 'llms.txt: "All data is TCPA, CCPA, GDPR, and MCDPA compliant."'
-  - id: usps-cass
-    conforms: true
-    evidence: >-
-      llms.txt (Order a Mailing List): "CASS Certified, NCOA verified
-      monthly."
-  - id: usps-ncoa
-    conforms: true
-    evidence: >-
-      llms.txt: mailing lists "NCOA verified monthly"; the APIs page lists
-      NCOA among hygiene capabilities ("Address standardization, NCOA, dedup,
-      deceased suppression").
-  - id: soc2
-    conforms: false
-    evidence: >-
-      Learning Lab (https://www.usadata.com/resources/learning-lab): "SOC
-      2-aligned security controls protect all data — AES 256 encryption at
-      rest, TLS 1.2+ in transit, multi-factor authentication, and
-      least-privilege access." SOC 2-ALIGNED controls are claimed, but no SOC 2
-      attestation/report is published, so conformance is not asserted.
-  - id: us-state-data-broker-registration
-    conforms: true
-    evidence: >-
-      Learning Lab: "We are registered as a data broker in California and
-      Texas. We operate as a 'service provider' under CCPA, not a 'business.'"
+- id: tcpa
+  conforms: true
+  category: regulatory
+  evidence: >-
+    llms.txt (https://www.usadata.com/llms.txt): "All data is TCPA, CCPA,
+    GDPR, and MCDPA compliant."
+- id: ccpa
+  conforms: true
+  category: regulatory
+  evidence: >-
+    llms.txt: "All data is TCPA, CCPA, GDPR, and MCDPA compliant." Site also
+    publishes a Do Not Sell My Information page
+    (https://www.usadata.com/donotsellmyinformation, HTTP 200) and a dedicated
+    /ccpa and /ccpa-faq page.
+- id: gdpr
+  conforms: true
+  category: regulatory
+  evidence: 'llms.txt: "All data is TCPA, CCPA, GDPR, and MCDPA compliant."'
+- id: mcdpa
+  conforms: true
+  category: regulatory
+  evidence: >-
+    llms.txt: "All data is TCPA, CCPA, GDPR, and MCDPA compliant." A dedicated
+    /mcdpa page is published.
+- id: hipaa
+  conforms: false
+  category: regulatory
+  evidence: >-
+    Learning Lab (https://www.usadata.com/resources/learning-lab): "USADATA
+    does not handle medical information covered by HIPAA." An explicit
+    non-applicability statement, recorded as published.
+- id: usps-cass
+  conforms: true
+  category: data-quality
+  evidence: 'llms.txt (Order a Mailing List): "CASS Certified, NCOA verified monthly."'
+- id: usps-ncoa
+  conforms: true
+  category: data-quality
+  evidence: >-
+    llms.txt: mailing lists "NCOA verified monthly"; the APIs page lists NCOA
+    among hygiene capabilities ("Address standardization, NCOA, dedup,
+    deceased suppression").
+- id: soc2
+  conforms: false
+  category: security
+  evidence: >-
+    Learning Lab: "SOC 2-aligned security controls protect all data — AES 256
+    encryption at rest, TLS 1.2+ in transit, multi-factor authentication, and
+    least-privilege access." SOC 2-ALIGNED controls are claimed, but no SOC 2
+    attestation or report is published, so conformance is not asserted.
+- id: us-state-data-broker-registration
+  conforms: true
+  category: regulatory
+  evidence: >-
+    Learning Lab: "We are registered as a data broker in California and Texas.
+    We operate as a 'service provider' under CCPA, not a 'business.'"
+- id: wsdl-1.1
+  conforms: true
+  category: technical
+  evidence: >-
+    https://leadsengine.usadata.com/service.asmx?WSDL returns HTTP 200
+    text/xml, a well-formed wsdl:definitions document (76,775 bytes) declaring
+    service "USADATA Leads Engine Service" with 24 operations. Saved verbatim
+    at wsdl/usadata-inc-leads-engine.wsdl.
+- id: soap-1.1
+  conforms: true
+  category: technical
+  evidence: >-
+    Binding USADATA_x0020_Leads_x0020_Engine_x0020_ServiceSoap. Verified live:
+    a SOAP 1.1 POST of the ping operation returned HTTP 200 with
+    <pingResult>true</pingResult> on 2026-08-13.
+- id: soap-1.2
+  conforms: true
+  category: technical
+  evidence: Binding USADATA_x0020_Leads_x0020_Engine_x0020_ServiceSoap12 declared in the WSDL.
+- id: xml-schema-1.0
+  conforms: true
+  category: technical
+  evidence: >-
+    Inline wsdl:types carries two XML Schema 1.0 namespaces with 48 elements,
+    59 complexTypes and 9 simpleTypes, document/literal, elementFormDefault
+    qualified.
+- id: ws-disco
+  conforms: true
+  category: technical
+  evidence: >-
+    https://leadsengine.usadata.com/service.asmx?disco returns HTTP 200 with a
+    Microsoft DISCO discovery document pointing at the WSDL and both SOAP
+    bindings.
+- id: openapi
+  conforms: false
+  category: technical
+  evidence: >-
+    No OpenAPI or Swagger document exists on any USADATA host. Probed
+    /openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json, /api-docs,
+    /docs and /redoc on www.usadata.com, leadsengine.usadata.com,
+    www.sl360.com and listmodulev3.usadata.com on 2026-08-13 - all 404 or an
+    HTML shell. The APIs page advertises a "RESTful API" that publishes no
+    machine-readable contract.
+- id: oauth2
+  conforms: false
+  category: security
+  evidence: >-
+    No OAuth flows anywhere. The WSDL authenticates with a Login {UserID,
+    Password, ClientID} element in the SOAP body; /.well-known/oauth-authorization-server
+    is 404 on every host.
+- id: oidc
+  conforms: false
+  category: security
+  evidence: /.well-known/openid-configuration returns 404 on every USADATA host.
+- id: ws-security
+  conforms: false
+  category: security
+  evidence: >-
+    No wsse header, no timestamp, no nonce, no signature in the WSDL.
+    Credentials are cleartext elements in the request body protected only by
+    TLS.
+- id: rfc9457-problem-details
+  conforms: false
+  category: technical
+  evidence: >-
+    Errors are returned as ReturnCode + ErrorMessage inside HTTP 200 result
+    objects, not as application/problem+json. See
+    errors/usadata-inc-error-codes.yml.
+- id: rfc8594-sunset
+  conforms: false
+  category: technical
+  evidence: No Sunset or Deprecation header support and no deprecation policy is published.
 notes:
-  - These are provider-published regulatory/data-quality compliance claims,
-    not third-party security certifications; no SOC 2 / ISO 27001 / PCI /
-    HIPAA attestations were found on the public site (no trust center,
-    /security, /trust, or /compliance pages — all 404 at probe time).
-  - Consumer suppression/removal contact published as privacy@usadata.com.
+- These are provider-published regulatory / data-quality compliance claims plus
+  contract-derived technical conformance, not third-party security
+  certifications. No SOC 2 / ISO 27001 / PCI / FedRAMP attestations were found
+  on the public site (no trust center; /security, /trust and /compliance all 404
+  and trust.usadata.com / security.usadata.com do not resolve). No Compliance
+  pointer is wired for that reason.
+- Consumer suppression/removal contact published as privacy@usadata.com.

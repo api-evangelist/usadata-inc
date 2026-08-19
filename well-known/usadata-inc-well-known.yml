@@ -1,23 +1,71 @@
-generated: '2026-07-21'
+generated: '2026-08-13'
 method: searched
 description: >-
-  Results of probing the /.well-known/ discovery surface for the USADATA
-  website host (no API base hosts are published; API access is sales-gated).
-  Status is the HTTP code observed at fetch time. No document returned a real
-  payload, so nothing was saved; this index records the honest absence.
+  Results of probing the /.well-known/ discovery surface across every USADATA
+  host known to this profile, including the API host discovered in the
+  2026-08-13 pass (leadsengine.usadata.com, which serves the Leads Engine
+  WSDL). Status is the HTTP code observed at fetch time. NOT ONE PATH RETURNED A
+  DOCUMENT on any host, so nothing was saved and no WellKnown, SecurityTxt or
+  AgentCard pointer is wired in apis.yml. This index records the honest absence.
 hosts:
-  - host: https://www.usadata.com
-    documents:
-      - path: /.well-known/security.txt
-        status: 404
-      - path: /.well-known/openid-configuration
-        status: 404
-      - path: /.well-known/oauth-authorization-server
-        status: 404
-      - path: /.well-known/api-catalog
-        status: 404
-      - path: /.well-known/ai-plugin.json
-        status: 404
+- host: https://www.usadata.com
+  role: corporate website (Squarespace)
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://leadsengine.usadata.com
+  role: Leads Engine SOAP API host
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+  - {path: /robots.txt, status: 404}
+  note: >-
+    This host does publish a real discovery surface, just not at /.well-known/ -
+    it serves WSDL 1.1 at /service.asmx?WSDL and a Microsoft DISCO document at
+    /service.asmx?disco, both HTTP 200. Captured in
+    wsdl/usadata-inc-leads-engine.wsdl.
+- host: https://www.sl360.com
+  role: SL360 self-serve audience platform
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+- host: https://listmodulev3.usadata.com
+  role: Leads Module embeddable component host
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
 notes:
-  - /llms.txt on www.usadata.com returns 200 (301 to nova-backend-production-3fee.up.railway.app);
-    saved verbatim at llms/usadata-inc-llms.txt.
+- /llms.txt on www.usadata.com returns 200 (301 to
+  nova-backend-production-3fee.up.railway.app/llms.txt); saved verbatim at
+  llms/usadata-inc-llms.txt. Re-fetched 2026-08-13 and byte-identical to the
+  2026-07-21 capture.
+- No A2A agent card exists on any host. Per the pipeline contract, no a2a/
+  artifact was written - an agent card may only ever be recorded from a real
+  200, never authored on the provider's behalf.

@@ -1,0 +1,99 @@
+generated: '2026-08-13'
+method: derived
+source: wsdl/usadata-inc-leads-engine.wsdl
+description: >-
+  Entity-relationship graph of the USADATA Leads Engine SOAP contract, derived
+  from the inline XML Schema in the published WSDL (59 complexTypes, 9
+  simpleTypes, 48 elements). The domain is a list-brokerage workflow: pick a
+  data TABLE, describe an AUDIENCE with geography + selection criteria, run a
+  COUNT, price it, place an ORDER, poll the order, collect a file.
+core_entities:
+- entity: Table
+  identifier: ID
+  fields: [ID, Description]
+  description: A queryable data source (consumer, business, occupant, new mover, etc.).
+  retrieved_by: getTableList
+- entity: Column
+  identifier: ID
+  fields: [ID, Description, Type, Values]
+  description: A selectable attribute on a Table, with an enumerated value list.
+  retrieved_by: getTableDefinition
+  value_type: ColumnValue {ID, Description}
+- entity: CountRequest
+  description: >-
+    The audience definition. Binds a TableName to AreaCriteria (geography),
+    GeographicCriteria, SelectionCriteria (demographic filters), phone options,
+    suppression, and polygon / multi-polygon geometry.
+  fields: [TableName, AreaCriteria, GeographicCriteria, SelectionCriteria, BreakdownResults,
+    PhoneOption, PerHouseholdValue, Suppression, SuppressionPriorOrder, PolygonPoints,
+    PolygonBreakdownType, CountIds, CustomSuppression, MultiPolygonPoints]
+- entity: Count
+  identifier: CountID
+  description: >-
+    The result of executing a CountRequest. Synchronous and asynchronous forms
+    both produce a CountID that becomes the input to pricing and ordering.
+  produced_by: [getSynchronousCount, getSynchronousCounts, submitAsynchronousCount,
+    getSynchronousSaturationCount, submitAsynchronousSaturationCount]
+  status_enum: CountStatus [Processing, Complete, Error]
+- entity: Order
+  identifier: OrderID
+  description: >-
+    A fulfilled purchase of records from a completed Count. Carries desired vs
+    available quantity, output columns, file format and usage rights.
+  fields: [CountID, InvoiceReferenceID, DesiredQuantity, AvailableQuantity, SelectionMethod,
+    FileFormat, Usage, OutputColumns, NthDistribution]
+  produced_by: [submitOrder, submitSaturationOrder]
+  status_enum: OrderStatus [Queued, Processing, Complete, Cancelled, OnHold, Error]
+  delivery: OrderStatusResult.URL
+- entity: AddressDefinition
+  fields: [Address, City, State, Zip, Location, Radius, Quantity, KeyCode]
+  description: A geocodable address with an optional Point (X/Y) and radius.
+- entity: CarrierRoute
+  identifier: ZipCode + Crrt
+  fields: [ZipCode, Crrt, CountHomes, CountApartments, CountBusinesses]
+  description: USPS carrier route, the unit of saturation (occupant) mail.
+relationships:
+- {from: CountRequest, to: Table, kind: belongs_to, via: TableName}
+- {from: CountRequest, to: Column, kind: has_many, via: SelectionCriteria}
+- {from: CountRequest, to: Column, kind: has_one, via: GeographicCriteria}
+- {from: CountRequest, to: AreaRequest, kind: has_one, via: AreaCriteria}
+- {from: CountRequest, to: SuppressionSelection, kind: has_one, via: Suppression}
+- {from: CountRequest, to: SuppressionPriorOrdersSelection, kind: has_one, via: SuppressionPriorOrder}
+- {from: AreaRequest, to: AddressDefinition, kind: has_many, via: Addresses}
+- {from: AreaRequest, to: DriveTimeDefinition, kind: has_one, via: DriveTimeAddress}
+- {from: AddressDefinition, to: Point, kind: has_one, via: Location}
+- {from: Column, to: ColumnValue, kind: has_many, via: Values}
+- {from: SynchronousCountResult, to: BreakdownResult, kind: has_many, via: BreakdownResults}
+- {from: SynchronousSaturationCountResult, to: CarrierRouteResult, kind: has_many, via: CarrierRoutes}
+- {from: OrderRequest, to: Count, kind: belongs_to, via: CountID}
+- {from: SaturationOrderRequest, to: Count, kind: belongs_to, via: CountID}
+- {from: SaturationOrderRequest, to: CarrierRouteRequest, kind: has_many, via: CarrierRoutes}
+- {from: OrderRequest, to: QtyDistribution, kind: has_one, via: NthDistribution}
+- {from: QtyDistribution, to: QtyDistributionValue, kind: has_many, via: Values}
+- {from: MatrixReportResult, to: Count, kind: belongs_to, via: CountID}
+- {from: FindAddressResult, to: AddressDefinition, kind: has_many, via: Candidates}
+- {from: GeographyElementResult, to: ColumnValue, kind: has_many, via: Elements}
+enumerations:
+- {name: ColumnType, note: declared in schema}
+- {name: AreaRequestType, note: geography selection mode}
+- {name: LocationType, note: drive-time origin type}
+- {name: RadiusType, note: polygon breakdown type}
+- {name: CountStatus, values: [Processing, Complete, Error]}
+- {name: FileFormats, values: [ASCII]}
+- {name: ListUsage, values: [Single, Multiple, Analytical]}
+- {name: SelectionMethod, values: [All, Stop, Distribute, DistributeNth]}
+- {name: OrderStatus, values: [Queued, Processing, Complete, Cancelled, OnHold, Error]}
+lifecycle_chain:
+- getTableList
+- getTableDefinition
+- getSynchronousCount or submitAsynchronousCount -> getAsynchronousCountStatus
+- getMatrixReport (optional cross-tab on the CountID)
+- getOrderPrice
+- submitOrder
+- getOrderStatus (poll to Complete, read URL)
+- cancelOrder (before fulfilment)
+notes:
+- ListUsage {Single, Multiple, Analytical} is a licence term expressed in the
+  contract - the API carries the data-usage right, not just the data.
+- FileFormats declares exactly one value, ASCII. The marketing site advertises
+  "CSV, Excel, or printed labels"; the machine-readable contract offers one.

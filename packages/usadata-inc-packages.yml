@@ -1,0 +1,36 @@
+generated: '2026-08-13'
+method: searched
+source: public package registries + https://www.usadata.com/products/apis
+description: >-
+  No first-party USADATA client library exists in any public package registry.
+  Eight registries were searched on 2026-08-13 and every hit was a different
+  organisation. USADATA's own GitHub account (github.com/USADATA, company
+  "USADATA Inc", created 2020-09-15) has 0 public repositories, so there is no
+  source-distributed SDK either.
+package_count: 0
+official_package_count: 0
+packages: []
+registries_searched:
+- {registry: npm, endpoint: 'https://registry.npmjs.org/-/v1/search?text=usadata', result: no
+    first-party package}
+- {registry: pypi, endpoint: 'https://pypi.org/pypi/usadata/json', result: 'package
+    exists but is an unrelated university data-analytics course scaffold by
+    Rebekah Jensen and Noah Champagne - NOT USADATA, Inc.'}
+- {registry: rubygems, endpoint: 'https://rubygems.org/api/v1/search.json?query=usadata',
+  result: empty}
+- {registry: packagist, endpoint: 'https://packagist.org/search.json?q=usadata', result: 'one
+    hit, usedatabrew/stream-sdk-php, a different company'}
+- {registry: nuget, result: no first-party package}
+- {registry: maven-central, result: no first-party package}
+- {registry: pkg.go.dev, result: no first-party package}
+- {registry: crates.io, result: no first-party package}
+source_repositories:
+- {host: github.com, account: USADATA, url: 'https://github.com/USADATA', type: user,
+  public_repos: 0, company: USADATA Inc, created: '2020-09-15', verified_on: '2026-08-13'}
+notes:
+- A SOAP/WSDL service does not strictly need a hand-written SDK - .NET, Java and
+  Python toolchains generate a client from
+  https://leadsengine.usadata.com/service.asmx?WSDL. That is the honest reason
+  the count is zero, and it is also why no SDKs pointer is wired in apis.yml.
+- No version/published fields are recorded because there is no package to read
+  them from - not because they were skipped.

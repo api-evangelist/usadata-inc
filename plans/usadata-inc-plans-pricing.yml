@@ -1,0 +1,57 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.usadata.com/resources/learning-lab
+description: >-
+  USADATA publishes a pricing MODEL but no plans. There are no tiers, no
+  published rate card, no per-record price and no API price list. Every quote is
+  volume-and-filter dependent and is produced either inside the SL360 app or by
+  sales. There is no /pricing page on www.usadata.com (probed 404) and none on
+  www.sl360.com (probed 404).
+plan_count: 0
+plans: []
+pricing_model:
+  type: usage-based
+  subscription: false
+  platform_fee: false
+  quotes:
+  - text: >-
+      "No. No subscription, no platform fees, no hidden costs. You pay only for
+      the data you order."
+    source: https://www.usadata.com/resources/learning-lab
+  - text: >-
+      "Pricing is based on the number of records and filters applied. Volume
+      discounts available."
+    source: https://www.usadata.com/resources/learning-lab
+  - text: '"Usage-based. No subscription, no platform fee."'
+    source: https://www.usadata.com/products/sl360
+  - text: >-
+      "Pricing based on record count and filters applied. Volume discounts
+      available."
+    source: https://www.usadata.com/data/order-mailing-list
+  price_visibility: in-app
+  price_visibility_note: >-
+    Real-time counts and pricing are shown inside SL360 and inside the
+    embeddable Leads Module; the Learning Lab points at sl360.com for retail
+    pricing. The Leads Engine SOAP contract exposes pricing programmatically
+    (getOrderPrice, getSaturationOrderPrice return PriceRequestResult.OrderPrice
+    as a double) - so price IS machine-readable, but only to an authenticated
+    account.
+  free_tier:
+    exists: partial
+    detail: >-
+      Free real-time counts before ordering, a free market/audience analysis
+      (usadata.com/start-analysis), Hailey AI advertised as free to use, and a
+      free trial referenced on the SL360 page. None of these are an API plan.
+api_pricing:
+  published: false
+  note: >-
+    No API-specific pricing, credit pack, call price or overage is published.
+    API access is provisioned through "Request A Demo" / "Talk To A Developer".
+probes:
+- {url: 'https://www.usadata.com/pricing', status: 404}
+- {url: 'https://www.sl360.com/pricing', status: 404}
+- {url: 'https://www.usadata.com/products/apis', status: 200}
+- {url: 'https://www.usadata.com/resources/learning-lab', status: 200}
+notes:
+- plan_count is 0 on purpose. "Contact us for a quote" is a real commercial
+  answer and it is recorded here as one - it is simply not a published plan.

@@ -16,6 +16,17 @@ description: USADATA is a data and marketing intelligence company founded in 199
   spec, and API credentials are sales-gated with no developer portal, no reference
   documentation and no self-service sign-up.
 url: https://raw.githubusercontent.com/api-evangelist/usadata-inc/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown

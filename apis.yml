@@ -1,5 +1,5 @@
 aid: usadata-inc
-name: USADATA, Inc.
+name: USADATA
 description: USADATA is a data and marketing intelligence company founded in 1998 and
   headquartered in New York City, backed by Insight Partners. It maintains a database of
   260+ million US consumer records, 15+ million businesses, and 190 million households,
@@ -197,3 +197,4 @@ x-enrichment:
   status: enriched
   artifacts_added: 14
   pass: local-v1
+x-legal-name: USADATA, Inc.

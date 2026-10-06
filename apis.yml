@@ -47,7 +47,7 @@ x-tier: profile
 x-tier-reason: enriched-from-stub
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-08-13'
+modified: '2026-10-06'
 tags:
 - Company
 - Data
@@ -116,6 +116,8 @@ apis:
       https://leadsengine.usadata.com/service.asmx, credential namespace
       http://Usadata.com/Services/LeadsEngine/Login.
 common:
+- url: https://www.usadata.com/resources/news?format=rss
+  type: BlogRSS
 - type: DomainSecurity
   url: security/usadata-inc-domain-security.yml
 - name: Authentication

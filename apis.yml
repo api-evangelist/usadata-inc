@@ -116,6 +116,8 @@ apis:
       https://leadsengine.usadata.com/service.asmx, credential namespace
       http://Usadata.com/Services/LeadsEngine/Login.
 common:
+- type: RateLimits
+  url: rate-limits/usadata-inc-rate-limits.yml
 - url: https://www.usadata.com/resources/news?format=rss
   type: BlogRSS
 - type: DomainSecurity

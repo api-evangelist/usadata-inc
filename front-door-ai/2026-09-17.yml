@@ -1,0 +1,31 @@
+# Front Door AI Index — usadata-inc — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: usadata-inc
+  lexicon_version: '1.0'
+  probed_at: '2026-09-25'
+  host: www.usadata.com
+  final_host: www.usadata.com
+  ownership: own
+  owner: usadata-inc
+  shares_host_with: null
+  inherited_from: null
+  alias_of: null
+  verdict: scored
+  score: 4
+  band: 3
+  band_label: light
+  host_score: 4
+  density: 2.67
+  words: 1497
+  tiers:
+    agentic: 0
+    core: 4
+    model: 0
+  ambiguous: 11
+  top_terms:
+    AI: 4
+    intelligence: 4
+    predictive: 4
+    agent: 3
